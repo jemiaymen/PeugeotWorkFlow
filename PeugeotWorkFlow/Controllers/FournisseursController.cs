@@ -41,6 +41,7 @@ namespace PeugeotWorkFlow.Controllers
         // GET: Fournisseurs/Create
         public ActionResult Create()
         {
+            ViewBag.CategoryID = new SelectList(db.Categories, "ID", "Lbl");
             return View();
         }
 
@@ -49,15 +50,27 @@ namespace PeugeotWorkFlow.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "ID,Nom_frn,Adress_frn,Mail_frn,Tel_frn")] Fournisseur fournisseur)
+        public async Task<ActionResult> Create([Bind(Include = "ID,Nom_frn,Adress_frn,Mail_frn,Tel_frn")] Fournisseur fournisseur, int[] CategoryID)
         {
             if (ModelState.IsValid)
             {
                 db.Fournisseurs.Add(fournisseur);
                 await db.SaveChangesAsync();
+
+                foreach (int i in CategoryID)
+                {
+                    var cinf = new CategoryInFournisseur();
+                    cinf.CategoryID = i;
+                    cinf.FournisseurID = fournisseur.ID;
+                    db.CategoryInFournisseur.Add(cinf);
+                    await db.SaveChangesAsync();
+                }
+
                 return RedirectToAction("Index");
+                
             }
 
+            ViewBag.CategoryID = new SelectList(db.Categories, "ID", "Lbl", CategoryID);
             return View(fournisseur);
         }
 
@@ -68,11 +81,22 @@ namespace PeugeotWorkFlow.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             Fournisseur fournisseur = await db.Fournisseurs.FindAsync(id);
+            
             if (fournisseur == null)
             {
                 return HttpNotFound();
             }
+
+            var cinf = await db.CategoryInFournisseur.Where(c => c.FournisseurID == fournisseur.ID).ToListAsync();
+            List<int> CID = new List<int>();
+
+            foreach (var ob in cinf)
+            {
+                CID.Add(  ob.CategoryID );
+            }
+            ViewBag.CategoryID = new MultiSelectList(db.Categories, "ID", "Lbl", CID);
             return View(fournisseur);
         }
 
@@ -81,11 +105,28 @@ namespace PeugeotWorkFlow.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "ID,Nom_frn,Adress_frn,Mail_frn,Tel_frn")] Fournisseur fournisseur)
+        public async Task<ActionResult> Edit([Bind(Include = "ID,Nom_frn,Adress_frn,Mail_frn,Tel_frn")] Fournisseur fournisseur, int[] CategoryID)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(fournisseur).State = EntityState.Modified;
+
+                var CINF = await db.CategoryInFournisseur.Where(c => c.FournisseurID == fournisseur.ID).ToListAsync();
+                
+                foreach(var c in CINF)
+                {
+                    db.CategoryInFournisseur.Remove(c);
+                }
+                await db.SaveChangesAsync();
+
+                foreach (int i in CategoryID)
+                {
+                    var cinf = new CategoryInFournisseur();
+                    cinf.CategoryID = i;
+                    cinf.FournisseurID = fournisseur.ID;
+                    db.CategoryInFournisseur.Add(cinf);
+                    
+                }
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
@@ -112,8 +153,15 @@ namespace PeugeotWorkFlow.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
+
             Fournisseur fournisseur = await db.Fournisseurs.FindAsync(id);
+            var CINF = await db.CategoryInFournisseur.Where(c => c.FournisseurID == fournisseur.ID).ToListAsync();
+            foreach (var c in CINF)
+            {
+                db.CategoryInFournisseur.Remove(c);
+            }
             db.Fournisseurs.Remove(fournisseur);
+
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }

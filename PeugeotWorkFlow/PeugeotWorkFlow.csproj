@@ -162,24 +162,15 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
-    <Compile Include="Controllers\CinFController.cs" />
     <Compile Include="Controllers\FournisseursController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201703122131432_roles.cs" />
-    <Compile Include="Migrations\201703122131432_roles.Designer.cs">
-      <DependentUpon>201703122131432_roles.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201703161631258_fournisseur.cs" />
-    <Compile Include="Migrations\201703161631258_fournisseur.Designer.cs">
-      <DependentUpon>201703161631258_fournisseur.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201703161715386_categ.cs" />
-    <Compile Include="Migrations\201703161715386_categ.Designer.cs">
-      <DependentUpon>201703161715386_categ.cs</DependentUpon>
+    <Compile Include="Migrations\201703231533447_init.cs" />
+    <Compile Include="Migrations\201703231533447_init.Designer.cs">
+      <DependentUpon>201703231533447_init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -255,11 +246,6 @@
     <Content Include="Views\Categories\Details.cshtml" />
     <Content Include="Views\Categories\Edit.cshtml" />
     <Content Include="Views\Categories\Index.cshtml" />
-    <Content Include="Views\CinF\Create.cshtml" />
-    <Content Include="Views\CinF\Delete.cshtml" />
-    <Content Include="Views\CinF\Details.cshtml" />
-    <Content Include="Views\CinF\Edit.cshtml" />
-    <Content Include="Views\CinF\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -273,14 +259,8 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201703122131432_roles.resx">
-      <DependentUpon>201703122131432_roles.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201703161631258_fournisseur.resx">
-      <DependentUpon>201703161631258_fournisseur.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201703161715386_categ.resx">
-      <DependentUpon>201703161715386_categ.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201703231533447_init.resx">
+      <DependentUpon>201703231533447_init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

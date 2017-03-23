@@ -3,10 +3,44 @@ namespace PeugeotWorkFlow.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class roles : DbMigration
+    public partial class init : DbMigration
     {
         public override void Up()
         {
+            CreateTable(
+                "dbo.Categories",
+                c => new
+                    {
+                        ID = c.Int(nullable: false, identity: true),
+                        Lbl = c.String(nullable: false, maxLength: 100),
+                    })
+                .PrimaryKey(t => t.ID);
+            
+            CreateTable(
+                "dbo.CategoryInFournisseurs",
+                c => new
+                    {
+                        CategoryID = c.Int(nullable: false),
+                        FournisseurID = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => new { t.CategoryID, t.FournisseurID })
+                .ForeignKey("dbo.Categories", t => t.CategoryID, cascadeDelete: true)
+                .ForeignKey("dbo.Fournisseurs", t => t.FournisseurID, cascadeDelete: true)
+                .Index(t => t.CategoryID)
+                .Index(t => t.FournisseurID);
+            
+            CreateTable(
+                "dbo.Fournisseurs",
+                c => new
+                    {
+                        ID = c.Int(nullable: false, identity: true),
+                        Nom_frn = c.String(nullable: false, maxLength: 100),
+                        Adress_frn = c.String(nullable: false, maxLength: 500),
+                        Mail_frn = c.String(nullable: false),
+                        Tel_frn = c.String(nullable: false),
+                    })
+                .PrimaryKey(t => t.ID);
+            
             CreateTable(
                 "dbo.AspNetRoles",
                 c => new
@@ -38,7 +72,7 @@ namespace PeugeotWorkFlow.Migrations
                         Login = c.String(),
                         Address = c.String(),
                         Datenaiss = c.DateTime(nullable: false),
-                        Tel = c.Int(nullable: false),
+                        Tel = c.String(),
                         SignatureUser = c.String(),
                         Email = c.String(maxLength: 256),
                         EmailConfirmed = c.Boolean(nullable: false),
@@ -88,17 +122,24 @@ namespace PeugeotWorkFlow.Migrations
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
+            DropForeignKey("dbo.CategoryInFournisseurs", "FournisseurID", "dbo.Fournisseurs");
+            DropForeignKey("dbo.CategoryInFournisseurs", "CategoryID", "dbo.Categories");
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
+            DropIndex("dbo.CategoryInFournisseurs", new[] { "FournisseurID" });
+            DropIndex("dbo.CategoryInFournisseurs", new[] { "CategoryID" });
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.AspNetUserClaims");
             DropTable("dbo.AspNetUsers");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetRoles");
+            DropTable("dbo.Fournisseurs");
+            DropTable("dbo.CategoryInFournisseurs");
+            DropTable("dbo.Categories");
         }
     }
 }

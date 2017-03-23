@@ -7,13 +7,13 @@ namespace PeugeotWorkFlow.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.1-30610")]
-    public sealed partial class categ : IMigrationMetadata
+    public sealed partial class init : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(categ));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(init));
         
         string IMigrationMetadata.Id
         {
-            get { return "201703161715386_categ"; }
+            get { return "201703231533447_init"; }
         }
         
         string IMigrationMetadata.Source
