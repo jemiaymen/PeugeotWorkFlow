@@ -1,0 +1,39 @@
+﻿@model IEnumerable<PeugeotWorkFlow.Models.CategoryInFournisseur>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Category.Lbl)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Fournisseur.Nom_frn)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Category.Lbl)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Fournisseur.Nom_frn)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { idc = item.CategoryID, idf = item.FournisseurID }) |
+            @Html.ActionLink("Details", "Details", new { idc = item.CategoryID , idf = item.FournisseurID }) |
+            @Html.ActionLink("Delete", "Delete", new { idc = item.CategoryID, idf = item.FournisseurID })
+        </td>
+    </tr>
+}
+
+</table>
