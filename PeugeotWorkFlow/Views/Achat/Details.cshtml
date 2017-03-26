@@ -1,0 +1,90 @@
+﻿@model PeugeotWorkFlow.Models.Achat
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Achat</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Department.Dep)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Department.Dep)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Des)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Des)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Categ)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Categ)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DtAcha)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DtAcha)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Creation)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Creation)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LieuLiv)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LieuLiv)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Imp)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Imp)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Qte)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Qte)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Type)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Type)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -8,6 +8,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace PeugeotWorkFlow.Models
 {
 
+    public enum Type
+    {
+        Besoin = 0,
+        Demande = 1,
+        BonCommande = 2,
+        BonLivraison = 3
+    }
+
     public class Fournisseur
     {
         public int ID { get; set; }
@@ -57,4 +65,128 @@ namespace PeugeotWorkFlow.Models
         public int FournisseurID { get; set; }
         public virtual Fournisseur Fournisseur { get; set; }
     }
+
+    public class Department
+    {
+        public int ID { get; set; }
+
+        [Required]
+        [Display(Name = "Departement")]
+        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 4)]
+        public string Dep { get; set; }
+
+        [Required]
+        [Display(Name = "Budget")]
+        public float Budget { get; set; }
+
+        [Required]
+        [Display(Name = "Dépense")]
+        public float Depense { get; set; }
+
+    }
+
+    public class Achat
+    {
+        public int ID { get; set; }
+
+        [ForeignKey("Department")]
+        public int DepartmentID { get; set; }
+
+        [Required]
+        [Display(Name = "Désignation")]
+        [StringLength(500, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 4)]
+        public string Des { get; set; }
+
+        [Required]
+        [Display(Name = "Catégorie")]
+        [StringLength(500, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 4)]
+        public string Categ { get; set; }
+
+        [Display(Name = "Date d'Achat")]
+        public DateTime DtAcha { get; set; }
+
+        [Required]
+        [Display(Name = "Création")]
+        public bool Creation { get; set; }
+
+        [Required]
+        [Display(Name = "Lieux de Livraison")]
+        [StringLength(500, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 4)]
+        public string LieuLiv { get; set; }
+
+        [Required]
+        [Display(Name = "Imputation")]
+        [StringLength(500, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 4)]
+        public string Imp { get; set; }
+
+        [Required]
+        [Display(Name = "Quantité")]
+        public int Qte { get; set; }
+
+        public Type Type { get; set; }
+
+        public virtual Department Department { get; set; }
+
+        public Achat()
+        {
+            DtAcha = DateTime.Now;
+            Type = Type.Besoin;
+        }
+    }
+
+
+    public class Notification
+    {
+        public int ID { get; set; }
+
+        [Required]
+        [Display(Name = "Type Notification")]
+        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 4)]
+        public string Type { get; set; }
+
+    }
+
+    public class Avis
+    {
+        public int ID { get; set; }
+
+        [ForeignKey("Achat")]
+        public int AchatID { get; set; }
+
+        [Required]
+        [Display(Name = "Libellé")]
+        [StringLength(500, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 4)]
+        public string Lbl { get; set; }
+
+        [Required]
+        [Display(Name = "Code")]
+        public int Code { get; set; }
+
+        [Required]
+        [Display(Name = "Acceptation")]
+        public bool Accept { get; set; }
+
+        public virtual Achat Achat { get; set; }
+
+    }
+
+    public class AchatInNotification
+    {
+        public int ID { get; set; }
+
+        [ForeignKey("Achat")]
+        public int AchatID { get; set; }
+
+        [ForeignKey("Notification")]
+        public int NotificationID { get; set; }
+
+        [Required]
+        [Display(Name = "Date de Notification")]
+        public DateTime DtNotif { get; set; }
+
+
+        public virtual Notification Notification { get; set; }
+        public virtual Achat Achat { get; set; }
+    }
+
 }

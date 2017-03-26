@@ -1,0 +1,81 @@
+﻿@model IEnumerable<PeugeotWorkFlow.Models.Achat>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Department.Dep)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Des)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Categ)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DtAcha)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Creation)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LieuLiv)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Imp)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Qte)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Type)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Department.Dep)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Des)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Categ)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DtAcha)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Creation)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LieuLiv)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Imp)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Qte)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Type)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>

@@ -11,6 +11,7 @@ namespace PeugeotWorkFlow.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
+            //AutomaticMigrationsEnabled = true; :migration automatique 
         }
 
         protected override void Seed(PeugeotWorkFlow.Models.ApplicationDbContext context)

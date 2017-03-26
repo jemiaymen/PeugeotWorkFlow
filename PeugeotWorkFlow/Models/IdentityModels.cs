@@ -44,5 +44,17 @@ namespace PeugeotWorkFlow.Models
         public System.Data.Entity.DbSet<PeugeotWorkFlow.Models.Category> Categories { get; set; }
 
         public System.Data.Entity.DbSet<PeugeotWorkFlow.Models.CategoryInFournisseur> CategoryInFournisseur { get; set; }
+
+        public System.Data.Entity.DbSet<PeugeotWorkFlow.Models.Department> Departments { get; set; }
+
+        public System.Data.Entity.DbSet<PeugeotWorkFlow.Models.Achat> Achats { get; set; }
+
+        public System.Data.Entity.DbSet<PeugeotWorkFlow.Models.Notification> Notifications { get; set; }
+
+        public System.Data.Entity.DbSet<PeugeotWorkFlow.Models.Avis> Avis { get; set; }
+
+        public System.Data.Entity.DbSet<PeugeotWorkFlow.Models.AchatInNotification> AchatInNotification { get; set; }
+
+        
     }
 }
