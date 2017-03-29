@@ -16,6 +16,13 @@ namespace PeugeotWorkFlow.Models
         BonLivraison = 3
     }
 
+    public enum State 
+    {
+        Wait = 0,
+        Repond = 1,
+        Chose = 2
+    }
+
     public class Fournisseur
     {
         public int ID { get; set; }
@@ -79,7 +86,6 @@ namespace PeugeotWorkFlow.Models
         [Display(Name = "Budget")]
         public float Budget { get; set; }
 
-        [Required]
         [Display(Name = "Dépense")]
         public float Depense { get; set; }
 
@@ -187,6 +193,43 @@ namespace PeugeotWorkFlow.Models
 
         public virtual Notification Notification { get; set; }
         public virtual Achat Achat { get; set; }
+    }
+
+    public class AchaFournisseur
+    {
+        public int ID { get; set; }
+
+        [ForeignKey("Achat")]
+        public int AchatID { get; set; }
+
+        [ForeignKey("Fournisseur")]
+        public int FournisseurID { get; set; }
+
+        [Required]
+        [Display(Name = "Prix HT")]
+        public float Price { get; set; }
+
+        [Required]
+        [Display(Name = "Remise")]
+        public float Remise { get; set; }
+
+        [Required]
+        [Display(Name = "Délais de Paiment")]
+        public DateTime Dt { get; set; }
+
+        [Display(Name = "Etat")]
+        public State State { get; set; }
+
+
+
+        public virtual Fournisseur Fournisseur { get; set; }
+        public virtual Achat Achat { get; set; }
+
+
+        public AchaFournisseur()
+        {
+            State = State.Wait;
+        }
     }
 
 }

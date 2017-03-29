@@ -6,6 +6,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Web;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PeugeotWorkFlow.Models
 {
@@ -25,6 +26,12 @@ namespace PeugeotWorkFlow.Models
         public DateTime Datenaiss { get; set; }
         public string Tel { get; set; }
         public string SignatureUser { get; set; }
+
+        [ForeignKey("Department")]
+        public int DepartmentID { get; set; }
+
+
+        public virtual Department Department { get; set; }
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
@@ -55,6 +62,7 @@ namespace PeugeotWorkFlow.Models
 
         public System.Data.Entity.DbSet<PeugeotWorkFlow.Models.AchatInNotification> AchatInNotification { get; set; }
 
-        
+        public System.Data.Entity.DbSet<PeugeotWorkFlow.Models.AchaFournisseur> AchaFournisseurs { get; set; }
+
     }
 }

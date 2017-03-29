@@ -35,6 +35,13 @@ namespace PeugeotWorkFlow.Migrations
                 new IdentityRole { Name = "Decideur" },
                 new IdentityRole { Name = "Demandeur" }
                 );
+
+            context.Departments.AddOrUpdate(
+                new PeugeotWorkFlow.Models.Department { Dep = "Department Piece et Service" , Budget = 0 , Depense = 0 },
+                new PeugeotWorkFlow.Models.Department { Dep = "Department Administratif et Financiere", Budget = 0, Depense = 0 },
+                new PeugeotWorkFlow.Models.Department { Dep = "Direction Generale" , Budget = 0 , Depense = 0 },
+                new PeugeotWorkFlow.Models.Department { Dep = "Direction Centrale", Budget = 0, Depense = 0 }
+            );
         }
     }
 }

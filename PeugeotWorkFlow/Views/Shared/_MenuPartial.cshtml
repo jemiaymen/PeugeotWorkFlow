@@ -1,0 +1,34 @@
+﻿@using Microsoft.AspNet.Identity
+
+@if (Request.IsAuthenticated)
+{
+    if (User.IsInRole(SecurityRole.Decideur))
+    {
+        <li>@Html.ActionLink("Decideur", "About", "Home")</li>
+    }
+
+    if (User.IsInRole(SecurityRole.Demandeur))
+    {
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Besoin <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+                <li>@Html.ActionLink("Consulter", "Index", "Besoin")</li>
+                <li>@Html.ActionLink("Créer", "Create", "Besoin")</li>
+                <li>@Html.ActionLink("Modifier", "Edit", "Besoin")</li>
+            </ul>
+        </li>
+    
+        <li>@Html.ActionLink("Demandeur", "About", "Home")</li>
+    }
+
+    if (User.IsInRole(SecurityRole.RespAcha))
+    {
+        <li>@Html.ActionLink("Resp Acha", "About", "Home")</li>
+    }
+}
+else
+{
+    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+    <li>@Html.ActionLink("About", "About", "Home")</li>
+    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+}

@@ -13,7 +13,7 @@ namespace PeugeotWorkFlow.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201703231533447_init"; }
+            get { return "201703271208261_init"; }
         }
         
         string IMigrationMetadata.Source

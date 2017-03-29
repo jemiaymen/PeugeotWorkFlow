@@ -171,25 +171,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201703231533447_init.cs" />
-    <Compile Include="Migrations\201703231533447_init.Designer.cs">
-      <DependentUpon>201703231533447_init.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201703262200414_depacha.cs" />
-    <Compile Include="Migrations\201703262200414_depacha.Designer.cs">
-      <DependentUpon>201703262200414_depacha.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201703262234510_notif.cs" />
-    <Compile Include="Migrations\201703262234510_notif.Designer.cs">
-      <DependentUpon>201703262234510_notif.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201703262246124_avis.cs" />
-    <Compile Include="Migrations\201703262246124_avis.Designer.cs">
-      <DependentUpon>201703262246124_avis.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201703262258223_achanotif.cs" />
-    <Compile Include="Migrations\201703262258223_achanotif.Designer.cs">
-      <DependentUpon>201703262258223_achanotif.cs</DependentUpon>
+    <Compile Include="Migrations\201703271208261_init.cs" />
+    <Compile Include="Migrations\201703271208261_init.Designer.cs">
+      <DependentUpon>201703271208261_init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -280,6 +264,7 @@
     <Content Include="Views\Notification\Details.cshtml" />
     <Content Include="Views\Notification\Edit.cshtml" />
     <Content Include="Views\Notification\Index.cshtml" />
+    <Content Include="Views\Shared\_MenuPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -293,20 +278,8 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201703231533447_init.resx">
-      <DependentUpon>201703231533447_init.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201703262200414_depacha.resx">
-      <DependentUpon>201703262200414_depacha.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201703262234510_notif.resx">
-      <DependentUpon>201703262234510_notif.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201703262246124_avis.resx">
-      <DependentUpon>201703262246124_avis.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201703262258223_achanotif.resx">
-      <DependentUpon>201703262258223_achanotif.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201703271208261_init.resx">
+      <DependentUpon>201703271208261_init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

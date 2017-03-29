@@ -18,6 +18,8 @@ namespace PeugeotWorkFlow.Controllers
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
+        private ApplicationDbContext db = new ApplicationDbContext();
+
         public AccountController()
         {
         }
@@ -137,25 +139,29 @@ namespace PeugeotWorkFlow.Controllers
         //
         // GET: /Account/Register
         //[Authorize(Roles = "Administrator, Responsable Achat")]
-        [Authorize(Roles = "Responsable Achat")]
+        [AllowAnonymous]
+        //[Authorize(Roles = "Responsable Achat")]
         public ActionResult Register()
         {
+            ViewBag.DepartmentID = new SelectList(db.Departments, "ID", "Dep");
             return View();
         }
 
         //
         // POST: /Account/Register
         [HttpPost]
-        [Authorize(Roles = "Responsable Achat")]
+        //[Authorize(Roles = "Responsable Achat")]
+        [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        public async Task<ActionResult> Register(RegisterViewModel model,int DepartmentID)
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Login, Email = model.Email   };
-                user.Address = model.Address;
-                user.Datenaiss = model.Datenaiss;
-                user.Tel = model.Tel;
+                var user = new ApplicationUser { UserName = model.Login, Email = model.Email , Address = model.Address ,
+                                                 Datenaiss = model.Datenaiss , Tel = model.Tel , DepartmentID = DepartmentID,
+                                                 Login = model.Login
+                                                };
+
                 if (model.Singimg != null)
                 {
                     var ext = System.IO.Path.GetExtension(model.Singimg.FileName);
@@ -163,7 +169,7 @@ namespace PeugeotWorkFlow.Controllers
                     {
                         string filename = model.Login + "-" + Guid.NewGuid().ToString() + ext;
                         model.Singimg.SaveAs(Server.MapPath(@"~/Content/Img/" + filename));
-                        user.SignatureUser = filename;
+                        user.SignatureUser = filename; 
                     }
                 }
 
@@ -202,6 +208,8 @@ namespace PeugeotWorkFlow.Controllers
             }
 
             // If we got this far, something failed, redisplay form
+
+            ViewBag.DepartmentID = new SelectList(db.Departments, "ID", "Dep");
             return View(model);
         }
 
