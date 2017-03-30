@@ -41,6 +41,7 @@ namespace PeugeotWorkFlow.Controllers
         public ActionResult Create()
         {
             ViewBag.DepartmentID = new SelectList(db.Departments, "ID", "Dep");
+            ViewData["deps"] = db.Departments.ToList();
             return View();
         }
 
@@ -59,6 +60,7 @@ namespace PeugeotWorkFlow.Controllers
             }
 
             ViewBag.DepartmentID = new SelectList(db.Departments, "ID", "Dep", achat.DepartmentID);
+            ViewData["deps"] = db.Departments.ToList();
             return View(achat);
         }
 

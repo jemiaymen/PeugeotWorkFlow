@@ -1,10 +1,10 @@
 ﻿@model PeugeotWorkFlow.Models.Achat
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Créer Besoin";
 }
 
-<h2>Create</h2>
+<h2>@ViewBag.Title</h2>
 
 
 @using (Html.BeginForm()) 
@@ -12,14 +12,27 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Achat</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            @Html.LabelFor(model => model.DepartmentID, "DepartmentID", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.Label("Demandeur : (DIR / SCE) ", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("DepartmentID", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.DepartmentID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Total Dépenses budgétées :", htmlAttributes: new { @class = "control-label col-md-2"  })
+            <div class="col-md-10">
+                @Html.TextBox("depd", "", new { @class = "form-control", @readonly = "readonly" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Total Dépenses à la date de la demande :", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBox("depdt","", new { @class = "form-control", @readonly = "readonly" })
             </div>
         </div>
 
@@ -81,10 +94,28 @@
     </div>
 }
 
+
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
 
 @section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jqueryval","~/bundles/apps")
+
+    <script>
+        $('#DepartmentID').change(function () {
+            var id = $('#DepartmentID').val();
+            var d = JSON.parse('@Html.Raw(Json.Encode(ViewData["deps"]))');
+            $.each(d, function (i,obj) {
+                if (obj.ID == id) {
+                    $('#depd').val(obj.Budget);
+                    $('#depdt').val(obj.Depense);
+                    return;
+                }
+            });
+            
+        });
+    </script>
+     
 }
+
