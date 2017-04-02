@@ -11,7 +11,7 @@ using PeugeotWorkFlow.Models;
 
 namespace PeugeotWorkFlow.Controllers
 {
-    [Authorize(Roles = "Responsable Achat")]
+    //[Authorize(Roles = "Responsable Achat")]
     public class CategoriesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

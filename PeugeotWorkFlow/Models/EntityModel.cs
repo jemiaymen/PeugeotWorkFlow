@@ -190,6 +190,9 @@ namespace PeugeotWorkFlow.Models
         [Display(Name = "Date de Notification")]
         public DateTime DtNotif { get; set; }
 
+        [Required]
+        [Display(Name = "Etat")]
+        public bool State { get; set; }
 
         public virtual Notification Notification { get; set; }
         public virtual Achat Achat { get; set; }

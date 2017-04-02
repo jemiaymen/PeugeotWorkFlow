@@ -15,10 +15,12 @@ namespace PeugeotWorkFlow.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+
         // GET: Achat
         public async Task<ActionResult> Index()
         {
-            var achats = db.Achats.Include(a => a.Department);
+            ApplicationUser current = db.Users.Where(u => u.UserName == User.Identity.Name).First(); 
+            var achats = db.Achats.Include(a => a.Department).Where(a => a.Type == PeugeotWorkFlow.Models.Type.Besoin && a.DepartmentID == current.DepartmentID);
             return View(await achats.ToListAsync());
         }
 
@@ -41,6 +43,12 @@ namespace PeugeotWorkFlow.Controllers
         public ActionResult Create()
         {
             ViewBag.DepartmentID = new SelectList(db.Departments, "ID", "Dep");
+            ViewBag.Categ = new SelectList(db.Categories, "Lbl", "Lbl");
+            ApplicationUser current = db.Users.Where(u => u.UserName == User.Identity.Name).First();
+
+            ViewBag.depd = current.Department.Budget;
+            ViewBag.depdt = current.Department.Depense;
+
             ViewData["deps"] = db.Departments.ToList();
             return View();
         }
@@ -50,17 +58,31 @@ namespace PeugeotWorkFlow.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "ID,DepartmentID,Des,Categ,DtAcha,Creation,LieuLiv,Imp,Qte,Type")] Achat achat)
+        public async Task<ActionResult> Create([Bind(Include = "ID,Des,Categ,DtAcha,Creation,LieuLiv,Imp,Qte,Type")] Achat achat)
         {
+            ApplicationUser current = db.Users.Where(u => u.UserName == User.Identity.Name).First();
+            achat.DepartmentID = current.DepartmentID;
+
             if (ModelState.IsValid)
             {
                 db.Achats.Add(achat);
                 await db.SaveChangesAsync();
+                AchatInNotification notif = new AchatInNotification();
+                notif.AchatID = achat.ID;
+                notif.NotificationID = 1;
+                notif.State = false;
+                notif.DtNotif = DateTime.Now;
+                db.AchatInNotification.Add( notif);
                 return RedirectToAction("Index");
             }
 
-            ViewBag.DepartmentID = new SelectList(db.Departments, "ID", "Dep", achat.DepartmentID);
-            ViewData["deps"] = db.Departments.ToList();
+
+
+            ViewBag.Categ = new SelectList(db.Categories, "Lbl", "Lbl",achat.Categ);
+
+            ViewBag.depd = current.Department.Budget;
+            ViewBag.depdt = current.Department.Depense;
+
             return View(achat);
         }
 
